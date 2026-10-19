@@ -11,11 +11,17 @@ Use Prettier for formatting.
 npm install
 npm run dev       # local dev server
 npm run build     # type-check, build, 404 fallback, short-link redirects
-npm run deploy    # build + publish dist/ to the gh-pages branch
 ```
 
-The site is served at `/echoish/` on GitHub Pages. To host it somewhere else
-(a custom domain, a renamed repo), build with `VITE_BASE=/` (or the new path).
+## Deploying
+
+Pushing to `main` deploys. `.github/workflows/deploy.yml` builds the site and
+publishes it to GitHub Pages (one-time setup: Settings → Pages → Source =
+"GitHub Actions"). You can also redeploy from the Actions tab → Run workflow.
+
+The workflow picks the base path from the Pages settings: `/` when a custom
+domain (echoish.lol) is set, `/echoish/` on `github.io`. Locally, `npm run build`
+defaults to `/echoish/`; build with `VITE_BASE=/` to test the root-domain version.
 `vite.config.ts` → `base` and `main.tsx` → `BrowserRouter basename` read the
 same value, so routing follows automatically.
 
